@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:title="Home" />
+        <item
+            android:id="@+id/nav_electricity"
+            android:title="Electrcian" />
+        <item
+            android:id="@+id/nav_plumber"
+            android:title="Plumber" />
+        <item
+            android:id="@+id/nav_car_service"
+            android:title="Car Service" />
+        <item
+            android:id="@+id/nav_bike_service"
+            android:title="Bike Service" />
+        <item
+            android:id="@+id/nav_cleaning"
+            android:title="Cleaning" />
+        <item
+            android:id="@+id/nav_ac_other"
+            android:title="AC,Fridge,Other" />
+        <item
+            android:id="@+id/nav_photographer"
+            android:title="Photographer" />
+        <item
+            android:id="@+id/nav_djbooking"
+            android:title="DJ Booking" />
+    </group>
+
+</menu>
