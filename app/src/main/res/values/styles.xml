@@ -24,9 +24,9 @@
     </style>
 
 
-   <style name="AppTheme.MyTheme" parent="@android:style/Theme.Holo.Light">
-       <item name="android:actionBarStyle">@style/CustomActionBar</item>
-   </style>
+    <style name="AppTheme.MyTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/CustomActionBar</item>
+    </style>
 
     <style name="CustomActionBar" parent="@style/Widget.AppCompat.Light.ActionBar">
         <item name="android:background">@color/colorAccent</item>
