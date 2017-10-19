@@ -31,14 +31,6 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity" />
-        <activity
-            android:name=".Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".OTP.CountrySpinner" />
-        <activity android:name=".OTP.Main3Activity" />
-        <activity android:name=".OTP.VerificationActivity"></activity>
-    </application>
 
+</application>
 </manifest>

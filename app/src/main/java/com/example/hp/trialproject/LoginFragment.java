@@ -1,14 +1,17 @@
 package com.example.hp.trialproject;
 
+
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -19,7 +22,13 @@ import java.util.regex.Pattern;
 import butterknife.ButterKnife;
 import butterknife.BindView;
 
-public class LoginActivity extends AppCompatActivity {
+import static android.app.Activity.RESULT_OK;
+
+
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class LoginFragment extends Fragment {
 
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
@@ -27,25 +36,24 @@ public class LoginActivity extends AppCompatActivity {
 
 
     //    @BindView(R.id.input_email) EditText _emailText;
-    @BindView(R.id.input_phone)
-    EditText _phone;
-    @BindView(R.id.btn_login)
-    Button _loginButton;
-    @BindView(R.id.link_signup)
-    TextView _signupLink;
+    @BindView(R.id.input_phone) EditText _phone;
+    @BindView(R.id.btn_login_continue) Button _loginButton;
+    @BindView(R.id.link_signup) TextView _signupLink;
+
+
+
+    public LoginFragment() {
+        // Required empty public constructor
+    }
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
+        ButterKnife.bind(this, view);
 
-        ButterKnife.bind(this);
-
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            Window w = getWindow(); // in Activity's onCreate() for instance
-//            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-//        }
 
         _loginButton.setOnClickListener(new View.OnClickListener() {
 
@@ -60,14 +68,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start the Signup activity
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivityForResult(intent, REQUEST_SIGNUP);
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.login_layout, new SignUpFragment(), new SignUpFragment().getTag()).commit();
             }
         });
 
-
+        return view;
     }
-
 
     public void login() {
         Log.d(TAG, "Login");
@@ -79,8 +86,7 @@ public class LoginActivity extends AppCompatActivity {
 
         _loginButton.setEnabled(false);
 
-        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.Theme_AppCompat_NoActionBar);
+        final ProgressDialog progressDialog = new ProgressDialog(getActivity());
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();
@@ -98,29 +104,27 @@ public class LoginActivity extends AppCompatActivity {
                 }, 3000);
     }
 
-
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
-                this.finish();
+                getActivity().finish();
             }
         }
     }
 
-    @Override
     public void onBackPressed() {
         // disable going back to the MainActivity
-        moveTaskToBack(true);
+        getActivity().moveTaskToBack(true);
     }
 
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
-        finish();
+        getActivity().finish();
     }
 
     public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "Login failed", Toast.LENGTH_LONG).show();
 
         _loginButton.setEnabled(true);
     }
@@ -144,5 +148,6 @@ public class LoginActivity extends AppCompatActivity {
 
         return valid;
     }
+
 
 }
